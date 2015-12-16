@@ -83,7 +83,7 @@ def getData():
 	print "received coordinates: [" + lat1 + ", " + lat2 + "], [" + lng1 + ", " + lng2 + "]"
 
 	client = pyorient.OrientDB("localhost", 2424)
-	session_id = client.connect("root", "password")
+	session_id = client.connect("root","68B3F006716AE57B3C7D440E95782BF2EB8F24D9F540E388294A20D69AE65")
 	db_name = "weibo"
 	db_username = "admin"
 	db_password = "admin"
@@ -95,7 +95,7 @@ def getData():
 		print "database [" + db_name + "] does not exist! session ending..."
 		sys.exit()
 
-        query = 'SELECT * FROM Checkin WHERE lat BETWEEN {} AND {} AND lng BETWEEN {} AND {} AND time BETWEEN "2014-01-21 00:01:00" and "2014-01-21 23:59:00"
+        query = 'SELECT * FROM Checkin WHERE lat BETWEEN {} AND {} AND lng BETWEEN {} AND {} AND time BETWEEN "2014-01-21 00:01:00" and "2014-01-21 23:59:00"'
 
 	records = client.command(query.format(lat1, lat2, lng1, lng2))
 
@@ -136,7 +136,7 @@ def getData2():
 	print "received coordinates: [" + lat1 + ", " + lat2 + "], [" + lng1 + ", " + lng2 + "]"
 
 	client = pyorient.OrientDB("localhost", 2424)
-	session_id2 = client.connect("root", "password")
+	session_id2 = client.connect("root", "68B3F006716AE57B3C7D440E95782BF2EB8F24D9F540E388294A20D69AE65")
 	db_name2 = "soufun"
 	db_username2 = "admin"
 	db_password2 = "admin"
