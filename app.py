@@ -83,8 +83,13 @@ def getData():
 	print "received coordinates: [" + lat1 + ", " + lat2 + "], [" + lng1 + ", " + lng2 + "]"
 
 	client = pyorient.OrientDB("localhost", 2424)
+<<<<<<< HEAD
 	session_id = client.connect("root","68B3F006716AE57B3C7D440E95782BF2EB8F24D9F540E388294A20D69AE65")
 	db_name = "weibo"
+=======
+	session_id = client.connect("root", "password")
+	db_name = "weibo_OLD"
+>>>>>>> origin/for-front-end
 	db_username = "admin"
 	db_password = "admin"
 
@@ -95,7 +100,11 @@ def getData():
 		print "database [" + db_name + "] does not exist! session ending..."
 		sys.exit()
 
+<<<<<<< HEAD
         query = 'SELECT * FROM Checkin WHERE lat BETWEEN {} AND {} AND lng BETWEEN {} AND {} AND time BETWEEN "2014-01-21 00:01:00" and "2014-01-21 23:59:00"'
+=======
+        query = 'SELECT * FROM Checkin WHERE time BETWEEN "2014-01-21 00:01:00" and "2014-01-21 23:59:00" LIMIT 100'
+>>>>>>> origin/for-front-end
 
 	records = client.command(query.format(lat1, lat2, lng1, lng2))
 
@@ -108,8 +117,9 @@ def getData():
         #add three sets of coordinates, times and checkins {UserID:{Check-In Time1: Check-In Location1}{Check-In Time2: Check-In Location2}{Check-In Time3: Check-In Location3}}
         for record in records:
             feature = {"type":"Feature","properties":{},"geometry":{"type":"Point"}}
-            #feature["properties"]["words"]= record.text
             feature["geometry"]["coordinates"]=[record.lat, record.lng]
+            #feature["properties"]["user"]= record.out
+            print str(record.out)
 
             output["features"].append(feature)
 

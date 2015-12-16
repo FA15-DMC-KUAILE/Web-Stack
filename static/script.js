@@ -27,8 +27,13 @@ var eventOutputContainer = document.getElementById("message");
 
 
 		//create variables to store a reference to svg and g elements
+
+		var svg_overlay = d3.select(map.getPanes().overlayPane).append("svg");
+		var g_overlay = svg_overlay.append("g").attr("class", "leaflet-zoom-hide");
+
 		var svg = d3.select(map.getPanes().overlayPane).append("svg");
 		var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
 		function projectPoint(lat, lng) {
 			return map.latLngToLayerPoint(new L.LatLng(lat, lng));
 		}
@@ -38,12 +43,18 @@ var eventOutputContainer = document.getElementById("message");
 		}
 		var transform = d3.geo.transform({point: projectStream});
 		var path = d3.geo.path().projection(transform);
+
 		function updateData(){
 			var mapBounds = map.getBounds();
 			var lat1 = mapBounds["_southWest"]["lat"];
 			var lat2 = mapBounds["_northEast"]["lat"];
 			var lng1 = mapBounds["_southWest"]["lng"];
 			var lng2 = mapBounds["_northEast"]["lng"];
+
+			var cell_size = 25;
+			var w = window.innerWidth;
+			var h = window.innerHeight;
+
 			request = "/getData?lat1=" + lat1 + "&lat2=" + lat2 + "&lng1=" + lng1 + "&lng2=" + lng2
 			console.log(request);
 		  	d3.json(request, function(data) {
@@ -106,7 +117,7 @@ var eventOutputContainer = document.getElementById("message");
 			.attr("height", function(d) { return d.height; })
 	    	.attr("fill-opacity", ".2")
 	    	.attr("fill", function(d) { return "hsl(0, " + Math.floor(d.value*100) + "%, 50%)"; });
-		
+
 		// function to update the data
 		function update() {
 
@@ -130,8 +141,7 @@ var eventOutputContainer = document.getElementById("message");
 		    // update circle position and size
 		    circles
 		    	.attr("cx", function(d) { return projectPoint(d.geometry.coordinates[0], d.geometry.coordinates[1]).x; })
-		    	.attr("cy", function(d) { return projectPoint(d.geometry.coordinates[0], d.geometry.coordinates[1]).y; })
-    			.attr("r", function(d) { return Math.pow(d.properties.price,.3); });
+		    	.attr("cy", function(d) { return projectPoint(d.geometry.coordinates[0], d.geometry.coordinates[1]).y; });
 		};
 	});
 };
