@@ -56,6 +56,7 @@ var eventOutputContainer = document.getElementById("message");
 			var h = window.innerHeight;
 
 			request = "/getData?lat1=" + lat1 + "&lat2=" + lat2 + "&lng1=" + lng1 + "&lng2=" + lng2
+			//request2 = "/getData2?lat1=" + lat1 + "&lat2=" + lat2 + "&lng1=" + lng1 + "&lng2=" + lng2
 			console.log(request);
 		  	d3.json(request, function(data) {
 				//create placeholder circle geometry and bind it to data
@@ -141,7 +142,8 @@ var eventOutputContainer = document.getElementById("message");
 		    // update circle position and size
 		    circles
 		    	.attr("cx", function(d) { return projectPoint(d.geometry.coordinates[0], d.geometry.coordinates[1]).x; })
-		    	.attr("cy", function(d) { return projectPoint(d.geometry.coordinates[0], d.geometry.coordinates[1]).y; });
+		    	.attr("cy", function(d) { return projectPoint(d.geometry.coordinates[0], d.geometry.coordinates[1]).y; })
+					.attr("fill-opacity", function(d);
 		};
 	});
 };
